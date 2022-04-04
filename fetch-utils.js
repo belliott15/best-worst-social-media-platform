@@ -14,6 +14,7 @@ export function checkAuth() {
     if (!user) location.replace('../');
 }
 
+
 export function redirectIfLoggedIn() {
     if (getUser()) {
         location.replace('./list-page');
@@ -22,7 +23,7 @@ export function redirectIfLoggedIn() {
 
 export async function signupUser(email, password) {
     const response = await client.auth.signUp({ email, password });
-
+    await createProfile();
     return response.user;
 }
 
@@ -38,6 +39,23 @@ export async function logout() {
     return (window.location.href = '../');
 }
 
-// function checkError({ data, error }) {
-//     return error ? console.error(error) : data;
-// }
+export async function getProfiles() {
+    const response = await client
+        .from('profiles')
+        .select();
+
+    return checkError(response);
+}
+
+export async function createProfile() {
+    const response = await client
+        .from('profiles')
+        .insert({});
+
+    return checkError(response);
+}
+
+
+function checkError({ data, error }) {
+    return error ? console.error(error) : data;
+}
