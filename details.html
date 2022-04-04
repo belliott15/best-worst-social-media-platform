@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/home.css">
+    <title>Profile Details</title>
+</head>
+
+<header>
+    <a href="./profiles.js">Back to profiles</a>
+    <h1 id="username-container">DEFAULT PROFILE EMAIL</h1>
+</header>
+
+<body>
+    <button id="logout">Logout</button>
+    <main>
+        <div id="karma-container">
+            <h2><span id="karma-rating">0</span> Karma Rating</h2>
+            <div id="karma-buttons">
+                <button id="increment-karma">Upvote</button>
+                <button id="decrement-karma">Downvote</button>
+            </div>
+        </div>
+        <div id="message-div">
+            <form id="message-form">
+                <label>
+                    <h3>Type message to</p> <span id="username">Placeholder</span></h3>
+                    <input name="message" />
+                </label>
+                <button>Submit</button>
+            </form>
+        </div>
+        <div id="message-container">
+            <!--received messages go here-->
+        </div>
+
+    </main>
+    <footer>
+        <div class="copy gutter-right">&copy; 2022 Copper Team</div>
+    </footer>
+    <script type="module" src="./details.js"></script>
+</body>
+
+</html>
