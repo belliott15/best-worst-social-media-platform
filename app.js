@@ -1,4 +1,8 @@
-import { redirectIfLoggedIn, signInUser, signupUser, uploadImage, makeImageUrl, addImagetoProfile } from './fetch-utils.js';
+import { redirectIfLoggedIn, signInUser, signupUser, 
+    // uploadImage, 
+    // makeImageUrl, 
+    // addImagetoProfile 
+} from './fetch-utils.js';
 
 const signInForm = document.getElementById('sign-in');
 const signInEmail = document.getElementById('sign-in-email');
@@ -16,18 +20,21 @@ redirectIfLoggedIn();
 signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const user = await signupUser(signUpEmail.value, signUpPassword.value);
-    const data = new FormData(signUpForm);
-    const avatarImage = data.get('avatar-image');
-    let uploadedAvatar = (await uploadImage(avatarImage));
-    uploadedAvatar = JSON.stringify(uploadedAvatar).substring(8, JSON.stringify(uploadedAvatar).length - 2);
-    const url = await makeImageUrl(uploadedAvatar);
-    await addImagetoProfile(url);
+    // const data = new FormData(signUpForm);
+
+    // const avatarImage = data.get('avatar-image');
+    // console.log(avatarImage);
+    // const uploadedAvatar = await uploadImage(avatarImage);
+    // console.log(uploadedAvatar);
+    // console.log(user);
+    // const url = await makeImageUrl(uploadedAvatar.Key);
+    // console.log(user.id, url);
+    // await addImagetoProfile(user.id, url);
     if (user) {
         redirectIfLoggedIn();
     } else {
         console.error(user);
     }
-
 });
 
 

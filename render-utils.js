@@ -1,9 +1,11 @@
 export function renderProfile(profile) {
     const profileDiv = document.createElement('div');
     const profileName = document.createElement('h3');
+    const avatarImg = document.createElement('img');
     const karmaEl = document.createElement('p');
 
     profileName.textContent = profile.email;
+    avatarImg.src = profile.image_url;
     karmaEl.textContent = `Karma: ` + profile.karma ;
 
     profileDiv.append(profileName, karmaEl);

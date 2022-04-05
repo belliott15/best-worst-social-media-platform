@@ -122,27 +122,28 @@ export async function createProfile() {
     return checkError(response);
 }
 
-export async function uploadImage(avatarFile){
-    const response = await client
-        .storage
-        .from('images')
-        .upload(avatarFile.name, avatarFile, {
-            cacheControl: '3600',
-            upsert: false
-        });
-    return checkError(response);
-}
+// export async function uploadImage(avatarFile){
+//     const response = await client
+//         .storage
+//         .from('images')
+//         .upload(avatarFile.name, avatarFile, {
+//             cacheControl: '3600',
+//             upsert: false
+//         });
+//     return checkError(response);
+// }
 
-export async function makeImageUrl(imageKey){
-    return `${SUPABASE_URL}/storage/v1/object/public/images/${imageKey}`;
-}
+// export async function makeImageUrl(imageKey){
+//     return `${SUPABASE_URL}/storage/v1/object/public/${imageKey}`;
+// }
 
-export async function addImagetoProfile(url){
-    const response = await client
-        .from('profiles')
-        .insert({ image_url:url });
-    return checkError(response);
-}
+// export async function addImagetoProfile(id, url){
+//     const response = await client
+//         .from('profiles')
+//         .insert({ image_url: url })
+//         .match({ user_id: id });
+//     return checkError(response);
+// }
 
 function checkError({ data, error }) {
     return error ? console.error(error) : data;
