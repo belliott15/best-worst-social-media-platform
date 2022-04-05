@@ -17,21 +17,16 @@ signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const user = await signupUser(signUpEmail.value, signUpPassword.value);
     const data = new FormData(signUpForm);
-
     const avatarImage = data.get('avatar-image');
-    console.log(avatarImage);
-    const uploadedAvatar = await uploadImage(avatarImage);
-    console.log(uploadedAvatar);
+    let uploadedAvatar = (await uploadImage(avatarImage));
+    uploadedAvatar = JSON.stringify(uploadedAvatar).substring(8, JSON.stringify(uploadedAvatar).length - 2);
     const url = await makeImageUrl(uploadedAvatar);
-    console.log(url);
     await addImagetoProfile(url);
     if (user) {
         redirectIfLoggedIn();
     } else {
         console.error(user);
     }
-
-    
 
 });
 

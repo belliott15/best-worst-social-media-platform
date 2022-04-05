@@ -21,7 +21,6 @@ async function fetchAndDisplayProfiles(){
 
     const profiles = await getProfiles();
     console.log(profiles);
-
     for (let profile of profiles){
         const profileDiv = renderProfile(profile);
         profileDiv.addEventListener('click', () => {

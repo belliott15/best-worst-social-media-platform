@@ -134,7 +134,7 @@ export async function uploadImage(avatarFile){
 }
 
 export async function makeImageUrl(imageKey){
-    return `${SUPABASE_URL}/storage/v1/object/sign/images/${imageKey}`;
+    return `${SUPABASE_URL}/storage/v1/object/public/images/${imageKey}`;
 }
 
 export async function addImagetoProfile(url){
