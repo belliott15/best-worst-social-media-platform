@@ -58,7 +58,6 @@ export async function displayProfile() {
             });
             messageDiv.append(deleteButton);
         }
-        // messagesDisplay.classList.add('messages');
         messagesDisplay.append(messageDiv);
     }
 }

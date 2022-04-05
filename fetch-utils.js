@@ -134,13 +134,14 @@ export async function uploadImage(avatarFile){
 }
 
 export async function makeImageUrl(imageKey){
-    return `${SUPABASE_URL}/storage/v1/object/sign/images/${imageKey}`;
+    return `${SUPABASE_URL}/storage/v1/object/public/${imageKey}`;
 }
 
-export async function addImagetoProfile(url){
+export async function addImagetoProfile(id, url){
     const response = await client
         .from('profiles')
-        .insert({ image_url:url });
+        .insert({ image_url: url })
+        .match({ user_id: id });
     return checkError(response);
 }
 
