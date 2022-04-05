@@ -37,10 +37,14 @@ export async function displayProfile() {
     emailDisplay.textContent = profile.email;
     usernameDisplay.textContent = 'Type message for ' + profile.email;
     let messages = await getMessages(id);
+    messagesDisplay.textContent = '';
     for (let message of messages) {
+        const sender = await getProfile(message.sender_id);
         let messageDiv = document.createElement('div');
-        messageDiv.textContent = message.message;
+        messageDiv.classList.add('messages');
+        messageDiv.textContent = `${sender.email} posted "${message.message}"`;
         messagesDisplay.append(messageDiv);
+        messagesDisplay.classList.add('messages');
     }
 }
 
