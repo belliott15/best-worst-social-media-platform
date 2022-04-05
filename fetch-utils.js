@@ -47,6 +47,8 @@ export async function getProfiles() {
     return checkError(response);
 }
 
+
+
 export async function getProfile(id) {
     const response = await client
         .from('profiles')
@@ -98,12 +100,14 @@ export async function decrementKarma(id) {
     return checkError(response);
 }
 
-/*export async function deleteMessage() {
+export async function deleteMessage(id) {
     const response = await client
         .from('messages')
         .delete()
-        .match();
-}*/
+        .match({ id });
+
+    return checkError(response);
+}
 
 export async function getMessages(id) {
     const response = await client

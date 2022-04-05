@@ -5,7 +5,8 @@ import { checkAuth,
     decrementKarma,
     getUser,
     sendMessage, 
-    getMessages
+    getMessages,
+    deleteMessage,
 } from '../fetch-utils.js';
 import { renderMessagesEl } from '../render-utils.js';
 
@@ -38,13 +39,28 @@ export async function displayProfile() {
     emailDisplay.textContent = profile.email;
     usernameDisplay.textContent = 'Type message for ' + profile.email;
     let messages = await getMessages(id);
+    messagesDisplay.classList.add('messages');
+    if (messages.length === 0) {
+        messagesDisplay.classList.remove('messages');
+    }
     messagesDisplay.textContent = '';
+    const user = await getUser();
     for (let message of messages) {
         const sender = await getProfile(message.sender_id);
         let messageDiv = renderMessagesEl(sender, message);
+        if (user.id === message.user_id) {
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'X';
+            deleteButton.classList.add('delete');
+            deleteButton.addEventListener('click', async () => {
+                await deleteMessage(message.id);
+                displayProfile();
+            });
+            messageDiv.append(deleteButton);
+        }
+        // messagesDisplay.classList.add('messages');
         messagesDisplay.append(messageDiv);
     }
-    messagesDisplay.classList.add('messages');
 }
 
 form.addEventListener('submit', async e => {
@@ -57,6 +73,8 @@ form.addEventListener('submit', async e => {
     displayProfile();
 });
 
+
+
 upvoteButton.addEventListener('click', async () => {
     await incrementKarma(id);
     displayProfile();
@@ -66,3 +84,4 @@ downvoteButton.addEventListener('click', async () => {
     await decrementKarma(id);
     displayProfile();
 }); 
+

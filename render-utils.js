@@ -16,5 +16,6 @@ export function renderMessagesEl(profile, message) {
     let messageDiv = document.createElement('div');
     messageDiv.classList.add('messages');
     messageDiv.textContent = `${profile.email} posted "${message.message}"`;
+    
     return messageDiv;
 }
