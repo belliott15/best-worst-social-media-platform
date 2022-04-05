@@ -14,7 +14,7 @@ export function checkAuth() {
 }
 
 
-export function redirectIfLoggedIn() {
+export function redirectiIfLoggedIn() {
     if (getUser()) {
         location.replace('./list-page');
     }
@@ -122,6 +122,19 @@ export async function createProfile() {
     return checkError(response);
 }
 
+export async function uploadImage(){
+    const { data, error } = await client
+        .storage
+        .from('images')
+        .upload('public/avatar1.png', avatarFile, {
+            cacheControl: '3600',
+            upsert: false
+        });
+}
+
+export async function makeImageUrl(imageKey){
+    return ` ${SUPABASE_URL} '/storage/v1/object/sign/images/'${imageKey}`;
+}
 
 function checkError({ data, error }) {
     return error ? console.error(error) : data;
