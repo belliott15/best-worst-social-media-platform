@@ -4,7 +4,7 @@ import { checkAuth,
     incrementKarma,
     decrementKarma,
     getUser,
-    sendMessage } from './fetch-utils.js';
+    sendMessage } from '../fetch-utils.js';
 
 checkAuth();
 
@@ -12,29 +12,27 @@ const logoutButton = document.getElementById('logout');
 const form = document.getElementById('message-form');
 const upvoteButton = document.getElementById('increment-karma');
 const downvoteButton = document.getElementById('decrement-karma');
+const emailDisplay = document.getElementById('username-container');
+const usernameDisplay = document.getElementById('username');
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
 
 logoutButton.addEventListener('click', () => {
     logout();
 });
 
 
-window.addEventListener('load', async () => {
+window.addEventListener('load', () => {
     displayProfile();
 });
 
 export async function displayProfile() {
-    let profile = getProfile(); //id?
-    renderKarma(profile);
-
-    //display t h e p r o f i l e
-}
-
-//takes in profile: object representing person with
-//email, karma, id properties
-//update karma display div to appropriate number
-async function renderKarma(profile) {
+    let profile = await getProfile(id);
     let karmaDiv = document.getElementById('karma-rating');
     karmaDiv.textContent = profile.karma;
+    emailDisplay.textContent = profile.email;
+    usernameDisplay.textContent = 'Type message for ' + profile.email;
 }
 
 //submit form event listener
