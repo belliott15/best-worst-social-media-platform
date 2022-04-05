@@ -41,7 +41,8 @@ export async function logout() {
 export async function getProfiles() {
     const response = await client
         .from('profiles')
-        .select();
+        .select()
+        .order('karma', { ascending: false });
 
     return checkError(response);
 }
