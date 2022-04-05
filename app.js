@@ -1,4 +1,4 @@
-import { redirectIfLoggedIn, signInUser, signupUser, uploadImage } from './fetch-utils.js';
+import { redirectIfLoggedIn, signInUser, signupUser, uploadImage, makeImageUrl, addImagetoProfile } from './fetch-utils.js';
 
 const signInForm = document.getElementById('sign-in');
 const signInEmail = document.getElementById('sign-in-email');
@@ -16,17 +16,22 @@ redirectIfLoggedIn();
 signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const user = await signupUser(signUpEmail.value, signUpPassword.value);
+    const data = new FormData(signUpForm);
 
+    const avatarImage = data.get('avatar-image');
+    console.log(avatarImage);
+    const uploadedAvatar = await uploadImage(avatarImage);
+    console.log(uploadedAvatar);
+    const url = await makeImageUrl(uploadedAvatar);
+    console.log(url);
+    await addImagetoProfile(url);
     if (user) {
         redirectIfLoggedIn();
     } else {
         console.error(user);
     }
 
-    const data = new FormData(signUpForm);
-
-    const avatarImage = data.get('avatar-image');
-    const uploadedAvatar = await uploadImage(avatarImage);
+    
 
 });
 
