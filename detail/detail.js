@@ -50,14 +50,15 @@ form.addEventListener('submit', async e => {
     let messageFrom = await getUser();
     await sendMessage(id, messageFrom.id, messageText);
     form.reset();
-});
-
-upvoteButton.addEventListener('click', () => {
-    incrementKarma(id);
     displayProfile();
 });
 
-downvoteButton.addEventListener('click', () => {
-    decrementKarma(id);
+upvoteButton.addEventListener('click', async () => {
+    await incrementKarma(id);
+    displayProfile();
+});
+
+downvoteButton.addEventListener('click', async () => {
+    await decrementKarma(id);
     displayProfile();
 }); 
