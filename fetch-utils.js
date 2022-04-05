@@ -56,30 +56,45 @@ export async function getProfile(id) {
     return checkError(response);
 }
 
-export async function sendMessage(recipient_id, sender_id, message) {
+export async function sendMessage(recipient_id, id, message) {
+    let sender_id = await getSenderProfile(id);
     const response = await client
         .from('messages')
         .insert({
             recipient_id: recipient_id,
-            sender_id: sender_id,
+            sender_id: sender_id.id,
             message: message,
         });
 
     return checkError(response);
 }
 
-export async function incrementKarma() {
+export async function getSenderProfile(id) {
     const response = await client
         .from('profiles')
-        .update();
+        .select('*')
+        .match({ user_id: id })
+        .single();
+
+    return checkError(response);
+}
+
+export async function incrementKarma(id) {
+    const profileid = await getProfile(id); 
+    const response = await client
+        .from('profiles')
+        .update({ karma: profileid.karma + 1 })
+        .match({ id });
 //placeholder
     return checkError(response);
 }
 
-export async function decrementKarma() {
+export async function decrementKarma(id) {
+    const profileid = await getProfile(id); 
     const response = await client
         .from('profiles')
-        .update();
+        .update({ karma: profileid.karma - 1 })
+        .match({ id });
 //placeholder
     return checkError(response);
 }

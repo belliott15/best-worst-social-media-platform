@@ -41,19 +41,17 @@ form.addEventListener('submit', async e => {
     let data = new FormData(form);
     let messageText = data.get('message');
     let messageFrom = await getUser();
-    await sendMessage({
-        text: messageText,
-        from_email: messageFrom.email,
-        recipient_id: 0 //uhhhh
-    });
+    await sendMessage(id, messageFrom.id, messageText);
+    console.log(messageText);
     form.reset();
-    location.replace('../profiles/index.html');
 });
 
 upvoteButton.addEventListener('click', () => {
-    incrementKarma();
+    incrementKarma(id);
+    displayProfile();
 });
 
 downvoteButton.addEventListener('click', () => {
-    decrementKarma();
+    decrementKarma(id);
+    displayProfile();
 }); 
