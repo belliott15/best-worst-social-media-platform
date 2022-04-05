@@ -38,12 +38,12 @@ export async function displayProfile() {
     karmaDiv.textContent = profile.karma;
     emailDisplay.textContent = profile.email;
     usernameDisplay.textContent = 'Type message for ' + profile.email;
+    messagesDisplay.textContent = '';
     let messages = await getMessages(id);
     messagesDisplay.classList.add('messages');
     if (messages.length === 0) {
         messagesDisplay.classList.remove('messages');
     }
-    messagesDisplay.textContent = '';
     const user = await getUser();
     for (let message of messages) {
         const sender = await getProfile(message.sender_id);
@@ -70,18 +70,18 @@ form.addEventListener('submit', async e => {
     let messageFrom = await getUser();
     await sendMessage(id, messageFrom.id, messageText);
     form.reset();
-    displayProfile();
+    await displayProfile();
 });
 
 
 
 upvoteButton.addEventListener('click', async () => {
     await incrementKarma(id);
-    displayProfile();
+    await displayProfile();
 });
 
 downvoteButton.addEventListener('click', async () => {
     await decrementKarma(id);
-    displayProfile();
+    await displayProfile();
 }); 
 
