@@ -103,7 +103,6 @@ export async function decrementKarma(id) {
         .from('messages')
         .delete()
         .match();
-//placeholder
 }*/
 
 export async function getMessages(id) {
