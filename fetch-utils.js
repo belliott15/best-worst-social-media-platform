@@ -80,45 +80,43 @@ export async function getSenderProfile(id) {
 }
 
 export async function incrementKarma(id) {
-    const profileid = await getProfile(id); 
+    const profileId = await getProfile(id); 
     const response = await client
         .from('profiles')
-        .update({ karma: profileid.karma + 1 })
+        .update({ karma: profileId.karma + 1 })
         .match({ id });
-//placeholder
     return checkError(response);
 }
 
 export async function decrementKarma(id) {
-    const profileid = await getProfile(id); 
+    const profileId = await getProfile(id); 
     const response = await client
         .from('profiles')
-        .update({ karma: profileid.karma - 1 })
+        .update({ karma: profileId.karma - 1 })
         .match({ id });
-//placeholder
     return checkError(response);
 }
 
-export async function deleteMessage() {
+/*export async function deleteMessage() {
     const response = await client
         .from('messages')
         .delete()
         .match();
 //placeholder
-}
+}*/
 
-export async function getMessages() {
+export async function getMessages(id) {
     const response = await client
         .from('messages')
-        .select();
-        //placeholder
+        .select('*')
+        .match({ recipient_id: id });
+    return checkError(response);
 }
 
 export async function createProfile() {
     const response = await client
         .from('profiles')
         .insert({});
-//placeholder
     return checkError(response);
 }
 

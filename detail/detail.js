@@ -4,7 +4,8 @@ import { checkAuth,
     incrementKarma,
     decrementKarma,
     getUser,
-    sendMessage } from '../fetch-utils.js';
+    sendMessage, 
+    getMessages} from '../fetch-utils.js';
 
 checkAuth();
 
@@ -14,6 +15,7 @@ const upvoteButton = document.getElementById('increment-karma');
 const downvoteButton = document.getElementById('decrement-karma');
 const emailDisplay = document.getElementById('username-container');
 const usernameDisplay = document.getElementById('username');
+const messagesDisplay = document.getElementById('message-container');
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
@@ -33,16 +35,20 @@ export async function displayProfile() {
     karmaDiv.textContent = profile.karma;
     emailDisplay.textContent = profile.email;
     usernameDisplay.textContent = 'Type message for ' + profile.email;
+    let messages = await getMessages(id);
+    for (let message of messages) {
+        let messageDiv = document.createElement('div');
+        messageDiv.textContent = message.message;
+        messagesDisplay.append(messageDiv);
+    }
 }
 
-//submit form event listener
 form.addEventListener('submit', async e => {
     e.preventDefault();
     let data = new FormData(form);
     let messageText = data.get('message');
     let messageFrom = await getUser();
     await sendMessage(id, messageFrom.id, messageText);
-    console.log(messageText);
     form.reset();
 });
 
