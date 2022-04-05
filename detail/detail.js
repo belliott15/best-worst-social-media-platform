@@ -7,6 +7,7 @@ import { checkAuth,
     sendMessage, 
     getMessages
 } from '../fetch-utils.js';
+import { renderMessagesEl } from '../render-utils.js';
 
 checkAuth();
 
@@ -40,12 +41,10 @@ export async function displayProfile() {
     messagesDisplay.textContent = '';
     for (let message of messages) {
         const sender = await getProfile(message.sender_id);
-        let messageDiv = document.createElement('div');
-        messageDiv.classList.add('messages');
-        messageDiv.textContent = `${sender.email} posted "${message.message}"`;
+        let messageDiv = renderMessagesEl(sender, message);
         messagesDisplay.append(messageDiv);
-        messagesDisplay.classList.add('messages');
     }
+    messagesDisplay.classList.add('messages');
 }
 
 form.addEventListener('submit', async e => {
