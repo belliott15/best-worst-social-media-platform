@@ -5,7 +5,8 @@ import { checkAuth,
     decrementKarma,
     getUser,
     sendMessage, 
-    getMessages} from '../fetch-utils.js';
+    getMessages
+} from '../fetch-utils.js';
 
 checkAuth();
 
