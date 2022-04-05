@@ -47,8 +47,6 @@ export async function getProfiles() {
     return checkError(response);
 }
 
-
-
 export async function getProfile(id) {
     const response = await client
         .from('profiles')
