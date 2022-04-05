@@ -1,5 +1,5 @@
-const SUPABASE_URL = '';
-const SUPABASE_KEY = '';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3YXF1aGF3cXl0dHhkcmNiaHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDc1NTE5ODEsImV4cCI6MTk2MzEyNzk4MX0.FnfsYqPR7GPz5COh7itHiDt6as7-F__iU57NyG7IKyE';
+const SUPABASE_URL = 'https://zwaquhawqyttxdrcbhxx.supabase.co';
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -46,11 +46,64 @@ export async function getProfiles() {
     return checkError(response);
 }
 
+export async function getProfile(id) {
+    const response = await client
+        .from('profiles')
+        .select('*')
+        .match({ id })
+        .single();
+
+    return checkError(response);
+}
+
+export async function sendMessage(recipient_id, sender_id, message) {
+    const response = await client
+        .from('messages')
+        .insert({
+            recipient_id: recipient_id,
+            sender_id: sender_id,
+            message: message,
+        });
+
+    return checkError(response);
+}
+
+export async function incrementKarma() {
+    const response = await client
+        .from('profiles')
+        .update();
+//placeholder
+    return checkError(response);
+}
+
+export async function decrementKarma() {
+    const response = await client
+        .from('profiles')
+        .update();
+//placeholder
+    return checkError(response);
+}
+
+export async function deleteMessage() {
+    const response = await client
+        .from('messages')
+        .delete()
+        .match();
+//placeholder
+}
+
+export async function getMessages() {
+    const response = await client
+        .from('messages')
+        .select();
+        //placeholder
+}
+
 export async function createProfile() {
     const response = await client
         .from('profiles')
         .insert({});
-
+//placeholder
     return checkError(response);
 }
 
