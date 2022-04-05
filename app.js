@@ -22,7 +22,7 @@ signUpForm.addEventListener('submit', async (event) => {
     console.log(avatarImage);
     const uploadedAvatar = await uploadImage(avatarImage);
     console.log(uploadedAvatar);
-    const url = await makeImageUrl(uploadedAvatar);
+    const url = await makeImageUrl(user.id, uploadedAvatar.Key);
     console.log(url);
     await addImagetoProfile(url);
     if (user) {
