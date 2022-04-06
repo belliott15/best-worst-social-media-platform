@@ -1,4 +1,6 @@
-import { checkAuth, logout, getProfiles } from '../fetch-utils.js';
+import { checkAuth, logout, getProfiles, 
+    // deleteProfile 
+} from '../fetch-utils.js';
 import { renderProfile } from '../render-utils.js';
 
 const profileContainerEl = document.getElementById('profiles-container');
@@ -22,7 +24,9 @@ async function fetchAndDisplayProfiles(){
     const profiles = await getProfiles();
     for (let profile of profiles){
         const profileDiv = renderProfile(profile);
-        profileDiv.addEventListener('click', () => {
+        profileDiv.addEventListener('click', async () => {
+            // await deleteProfile(profile.id);
+            // fetchAndDisplayProfiles();
             location.replace(`../detail/?id=${profile.id}`);
         });
         profileContainerEl.append(profileDiv);

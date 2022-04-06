@@ -107,6 +107,15 @@ export async function deleteMessage(id) {
     return checkError(response);
 }
 
+export async function deleteProfile(id) {
+    const response = await client
+        .from('profiles')
+        .delete()
+        .match({ id });
+
+    return checkError(response);
+}
+
 export async function getMessages(id) {
     const response = await client
         .from('messages')
