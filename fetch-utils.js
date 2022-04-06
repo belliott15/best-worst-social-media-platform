@@ -1,7 +1,8 @@
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp3YXF1aGF3cXl0dHhkcmNiaHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDc1NTE5ODEsImV4cCI6MTk2MzEyNzk4MX0.FnfsYqPR7GPz5COh7itHiDt6as7-F__iU57NyG7IKyE';
-const SUPABASE_URL = 'https://zwaquhawqyttxdrcbhxx.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwd2Z1YXF2d2x6cnRwYXV1Z290Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDc5Njg3MTAsImV4cCI6MTk2MzU0NDcxMH0.sUI1TaJk5GE34Q06B2tduC38-RG8NO-HoqJhGa4wrhg';
 
-const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL = 'https://cpwfuaqvwlzrtpauugot.supabase.co';
+
+export const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export function getUser() {
     return client.auth.session() && client.auth.session().user;
@@ -131,28 +132,59 @@ export async function createProfile() {
     return checkError(response);
 }
 
-// export async function uploadImage(avatarFile){
-//     const response = await client
-//         .storage
-//         .from('images')
-//         .upload(avatarFile.name, avatarFile, {
-//             cacheControl: '3600',
-//             upsert: false
-//         });
-//     return checkError(response);
-// }
+export async function uploadImage(avatarFile){
+    const response = await client
+        .storage
+        .from('avatars')
+        .upload(avatarFile.name, avatarFile, {
+            cacheControl: '3600',
+            upsert: false
+        });
+    return checkError(response);
+}
 
-// export async function makeImageUrl(imageKey){
-//     return `${SUPABASE_URL}/storage/v1/object/public/${imageKey}`;
-// }
+export async function makeImageUrl(imageKey){
+    return `${SUPABASE_URL}/storage/v1/object/public/${imageKey}`;
+}
 
-// export async function addImagetoProfile(id, url){
-//     const response = await client
-//         .from('profiles')
-//         .insert({ image_url: url })
-//         .match({ user_id: id });
-//     return checkError(response);
-// }
+export async function addImagetoProfile(id, url){
+    const response = await client
+        .from('profiles')
+        .insert({ image_url: url })
+        .match({ user_id: id });
+    return checkError(response);
+}
+
+export async function updatePlayer(updatedPlayer){
+    const response = await client 
+        .from('profiles')
+        .update(updatedPlayer)
+        .match({ id: updatedPlayer.id })
+        .single();
+
+    return checkError(response);
+}
+
+export async function getUserProfile(){
+    const user = await getUser();
+
+    const response = await client
+        .from('profiles')
+        .select('*')
+        .match({ email: user.email })
+        .single();
+
+    return checkError(response);
+}
+
+export async function getActivePlayers(){
+    const response = await client
+        .from('profiles')
+        .select('*')
+        .match({ playing: true });
+
+    return checkError(response);
+}
 
 function checkError({ data, error }) {
     return error ? console.error(error) : data;

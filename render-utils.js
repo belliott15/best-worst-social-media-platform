@@ -6,9 +6,10 @@ export function renderProfile(profile) {
 
     profileName.textContent = profile.email;
     avatarImg.src = profile.image_url;
+    avatarImg.classList.add('avatar');
     karmaEl.textContent = `Karma: ` + profile.karma ;
 
-    profileDiv.append(profileName, karmaEl);
+    profileDiv.append(avatarImg, profileName, karmaEl);
     profileDiv.classList.add('profile');
 
     return profileDiv;

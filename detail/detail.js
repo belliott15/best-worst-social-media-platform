@@ -19,6 +19,7 @@ const downvoteButton = document.getElementById('decrement-karma');
 const emailDisplay = document.getElementById('username-container');
 const usernameDisplay = document.getElementById('username');
 const messagesDisplay = document.getElementById('message-container');
+const avatarImage = document.getElementById('avatar-image');
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
@@ -37,6 +38,7 @@ export async function displayProfile() {
     let karmaDiv = document.getElementById('karma-rating');
     karmaDiv.textContent = profile.karma;
     emailDisplay.textContent = profile.email;
+    avatarImage.src = profile.image_url;
     usernameDisplay.textContent = 'Type message for ' + profile.email;
     messagesDisplay.textContent = '';
     let messages = await getMessages(id);
