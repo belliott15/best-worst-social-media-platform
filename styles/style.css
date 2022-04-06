@@ -206,3 +206,11 @@ cursor: pointer;
     /* display: flex; */
     /* justify-content: flex-end; */
 }
+
+#game-container{
+    height: 80%;
+    width: 80%;
+    border: 2px inset black;
+    margin: 20px;
+    padding: 20%;
+}

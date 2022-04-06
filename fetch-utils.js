@@ -2,7 +2,7 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 const SUPABASE_URL = 'https://cpwfuaqvwlzrtpauugot.supabase.co';
 
-const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+export const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export function getUser() {
     return client.auth.session() && client.auth.session().user;
@@ -152,6 +152,37 @@ export async function addImagetoProfile(id, url){
         .from('profiles')
         .insert({ image_url: url })
         .match({ user_id: id });
+    return checkError(response);
+}
+
+export async function updatePlayer(updatedPlayer){
+    const response = await client 
+        .from('profiles')
+        .update(updatedPlayer)
+        .match({ id: updatedPlayer.id })
+        .single();
+
+    return checkError(response);
+}
+
+export async function getUserProfile(){
+    const user = await getUser();
+
+    const response = await client
+        .from('profiles')
+        .select('*')
+        .match({ email: user.email })
+        .single();
+
+    return checkError(response);
+}
+
+export async function getActivePlayers(){
+    const response = await client
+        .from('profiles')
+        .select('*')
+        .match({ playing: true });
+
     return checkError(response);
 }
 
