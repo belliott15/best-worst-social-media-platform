@@ -1,4 +1,4 @@
-import { redirectIfLoggedIn, signInUser, signupUser, 
+import { redirectIfLoggedIn, signInUser, signupUser, createProfile
     // uploadImage, 
     // makeImageUrl, 
     // addImagetoProfile 
@@ -31,6 +31,7 @@ signUpForm.addEventListener('submit', async (event) => {
     // console.log(user.id, url);
     // await addImagetoProfile(user.id, url);
     if (user) {
+        await createProfile();
         redirectIfLoggedIn();
     } else {
         console.error(user);
