@@ -173,6 +173,10 @@ button {
 cursor: pointer; 
 }
 
+#username-container{
+    width: 30%;
+}
+
 .detail-page h1{
     display: flex;
     justify-content: center;
@@ -184,7 +188,21 @@ cursor: pointer;
     align-items: flex-start;
     justify-self: flex-start;
     margin-top: 10px;
+    position: relative;
     text-decoration: none;
     color: black;
     font-size: 1.5em;
+}
+
+.avatar{
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    border: double black 2px;
+}
+
+#avatar-image{
+    border-radius: 50%;
+    /* display: flex; */
+    /* justify-content: flex-end; */
 }
