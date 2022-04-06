@@ -22,7 +22,7 @@ export function redirectIfLoggedIn() {
 
 export async function signupUser(email, password) {
     const response = await client.auth.signUp({ email, password });
-    await createProfile();
+    
     return response.user;
 }
 
