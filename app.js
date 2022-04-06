@@ -26,7 +26,6 @@ signUpForm.addEventListener('submit', async (event) => {
     const uploadedImage = await uploadImage(avatarImage);
     const url = await makeImageUrl(uploadedImage.Key);
     await addImagetoProfile(user.id, url);
-    console.log(user.id);
 
 
     if (user) {

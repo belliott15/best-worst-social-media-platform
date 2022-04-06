@@ -25,6 +25,7 @@ window.addEventListener('load', async () =>{
     fetchAndDisplayActivePlayers();
     await client
         .from('profiles')
+        //eslint-disable-next-line
         .on('UPDATE', (payload) => {
             fetchAndDisplayActivePlayers();
         })
